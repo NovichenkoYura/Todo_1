@@ -3,11 +3,18 @@ const deskTaskInput = document.getElementById('desription-task');
 const todosWrapper = document.querySelector('.todos-wrapper');
 const footerBtnWrap = document.querySelector('.footer-wrap')
 const taskCompleteBtn = document.getElementById('btn-complete')
+const itemsLeftNumber = document.querySelector('.items-left')
+const allTasksBtn = document.getElementById('all-tasks');
+const activeTasksBtn = document.getElementById('active-tasks');
+const completedTasksBtn = document.getElementById('completed-tasks');
+const clearCompletedTasksBtn = document.getElementById('clear-completed-tasks');
+
 
 let tasks;
-!localStorage.tasks ? tasks = [] : tasks = JSON.parse(localStorage.getItem('tasks'));
-
 let todoItemsElems = [];
+
+
+!localStorage.tasks ? tasks = [] : tasks = JSON.parse(localStorage.getItem('tasks'));
 
 function Task(description) {
 	this.description = description;
@@ -55,14 +62,12 @@ const completeTask = index => {
 	fillHtmlList();
 }
 
-addTaskBtn.addEventListener('click', () => {
+function addTask() {
 	tasks.push(new Task(deskTaskInput.value));	
 	updateLocal();
 	fillHtmlList();
-	deskTaskInput.value = '';
-	renderFooterBtn(tasks);
-	
-})
+	deskTaskInput.value = '';	
+}
 
 const deleteTask = index => {
 	todoItemsElems[index].classList.add('delition')
@@ -75,27 +80,21 @@ const deleteTask = index => {
 	}, 500)
 }
 
-const createTemplateFooterBtn = (tasks) => {
-	const activeTask = tasks.filter(item => item.completed === false);
-	const completedTask = tasks.filter(item => item.completed === true);
-	console.log(activeTask.length)
-	console.log(completedTask)
-	return `
-		<p class="items-left">${activeTask.length}items left</p>
-		<button id="all-tasks">All</button>
-		<button id="active-tasks">Active</button>
-		<button id="completed-tasks">Completed</button>
-		<button id="clear-completed-tasks">Clear completed</button>
-
-	`
+function showItemsLeftQty() {
+	updateLocal()
+	return tasks.filter(item => item.completed === false).length;
 }
 
-const renderFooterBtn = (tasks) => {
-	footerBtnWrap.innerHTML = "";
-	updateLocal()
-	footerBtnWrap.innerHTML = createTemplateFooterBtn(tasks)
+itemsLeftNumber.insertAdjacentHTML("afterbegin", showItemsLeftQty());
+
+function showActiveTasks() {
 	
 }
 
-taskCompleteBtn.addEventListener('click', renderFooterBtn())
 
+
+addTaskBtn.addEventListener('click', addTask)
+allTasksBtn.addEventListener('click', fillHtmlList)
+// activeTasksBtn.addEventListener('click', showActiveTasks)
+// completedTasksBtn.addEventListener('click', showCompletetedTasks)
+// clearCompletedTasksBtn.addEventListener('click', clearCompletedTasks)

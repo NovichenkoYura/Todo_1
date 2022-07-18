@@ -1,1 +1,24 @@
-lgfsklgfg
+
+// const createTemplateFooterBtn = (tasks) => {
+// 	const activeTask = tasks.filter(item => item.completed === false);
+// 	const completedTask = tasks.filter(item => item.completed === true);
+// 	console.log(activeTask.length)
+// 	console.log(completedTask)
+// 	return `
+// 		<p class="items-left">${activeTask.length}items left</p>
+// 		<button id="all-tasks">All</button>
+// 		<button id="active-tasks">Active</button>
+// 		<button id="completed-tasks">Completed</button>
+// 		<button id="clear-completed-tasks">Clear completed</button>
+
+// 	`
+// }
+
+// const renderFooterBtn = (tasks) => {
+// 	footerBtnWrap.innerHTML = "";
+// 	updateLocal()
+// 	footerBtnWrap.innerHTML = createTemplateFooterBtn(tasks)
+	
+// }
+
+// taskCompleteBtn.addEventListener('click', renderFooterBtn())
